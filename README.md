@@ -6,6 +6,34 @@ Malcom combines streamed model responses, web research, document context, persis
 
 [Live application](https://malcom-lake.vercel.app) · [System status](https://malcom-lake.vercel.app/status) · [Portfolio](https://mudityaraghav.vercel.app)
 
+![Malcom chat composer](docs/screenshots/01-chat-composer.png)
+
+*The Malcom composer — Brief, Standard, and Deep response modes, optional web research, and document context in one stream.*
+
+## Screenshots
+
+Full-size images live in [`docs/screenshots/`](docs/screenshots/).
+
+### The workspace
+
+| | |
+|---|---|
+| ![Chat composer](docs/screenshots/01-chat-composer.png) | ![Workspace](docs/screenshots/03-malcom-workspace.png) |
+| **Chat composer** — streamed answers with Brief / Standard / Deep modes, web research with citations, and document context. | **Workspace** — saved chats, folders, tags, pinned sessions, and starred answers stay organized across sessions. |
+| ![Pricing plans](docs/screenshots/07-pricing-plans.png) | |
+| **Pricing plans** — Free, Pro ($9.99/mo), and Enterprise ($29.99/mo) tiers with Stripe Checkout upgrades. | |
+
+### Account & settings
+
+| | |
+|---|---|
+| ![Signup](docs/screenshots/04-signup-workspace.png) | ![Login](docs/screenshots/06-login-workspace.png) |
+| **Create your Malcom account** — Supabase email/password registration, with guest mode when you just want to try it. | **Log in to Malcom** — server-side session handling picks your workspace back up where you left it. |
+| ![Settings — general](docs/screenshots/02-settings-general.png) | ![Settings — profile](docs/screenshots/05-settings-profile.png) |
+| **Settings** — the workspace dashboard: account, usage, billing, and privacy from one place. | **Account profile** — display name and profile memory the assistant carries across conversations. |
+| ![Settings — plan](docs/screenshots/08-settings-plan.png) | ![Settings — data](docs/screenshots/09-settings-data.png) |
+| **Subscription** — current plan, Stripe customer portal, and webhook-synced subscription state. | **Privacy and data** — what is stored, and the controls to manage it. |
+
 ## Product overview
 
 - Streamed AI conversations with Brief, Standard, and Deep response modes
@@ -114,6 +142,7 @@ src/
     supabase/            Browser, server, and admin clients
 scripts/                Schema, smoke-test, asset, and deployment tools
 supabase/schema.sql     Database schema
+docs/screenshots/       Product screenshots used by this README
 ```
 
 ## Verification
