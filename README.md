@@ -1,175 +1,163 @@
-# Malcom
+<div align="center">
 
-**An all-round AI workspace for research, analysis, and long-form problem solving.**
+<h1>Malcom</h1>
 
-Malcom combines streamed model responses, web research, document context, persistent workspaces, account management, operational health reporting, and subscription billing in a production-oriented Next.js application.
+**An all-round AI research assistant for streamed conversations, document RAG, web research, and long-form analysis.**
 
-[Live application](https://malcom-lake.vercel.app) Â· [System status](https://malcom-lake.vercel.app/status) Â· [Portfolio](https://mudityaraghav.vercel.app)
+[Live app](https://malcom-lake.vercel.app) | [System status](https://malcom-lake.vercel.app/status)
 
-![Malcom chat composer](docs/screenshots/01-chat-composer.png)
+<p>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license" /></a>
+<a href="https://github.com/0xMudit/malcom-research-assistant"><img src="https://img.shields.io/badge/repo-0xMudit%2Fmalcom--research--assistant-blue.svg" alt="Repo" /></a>
+<img src="https://img.shields.io/badge/next.js-16-black.svg" alt="Next.js 16" />
+<img src="https://img.shields.io/badge/react-19-61dafb.svg" alt="React 19" />
+<img src="https://img.shields.io/badge/typescript-5-blue.svg" alt="TypeScript" />
+<img src="https://img.shields.io/badge/platforms-web-lightgrey.svg" alt="Web" />
+</p>
 
-*The Malcom composer â€” Brief, Standard, and Deep response modes, optional web research, and document context in one stream.*
+<img src="docs/screenshots/01-chat-composer.png" alt="Malcom chat composer with Brief, Standard, and Deep modes, web research, and document context" width="880" />
+
+</div>
+
+---
+
+## Why Malcom
+
+- **Streamed responses.** Real-time token streaming with Brief, Standard, and Deep modes for different depth requirements.
+- **Web research built in.** Optional web research with source collection and inline citations.
+- **Document-grounded answers.** Upload documents and get context-aware responses from your own materials.
+- **Rich output.** Supports Markdown, tables, fenced code, Mermaid diagrams, and KaTeX math rendering.
+- **Production-ready auth and billing.** Supabase Auth, guest mode, Stripe Checkout, customer portal, and webhook-synced subscriptions.
+- **Resilient by design.** SQLite fallback when Supabase is unavailable, DuckDuckGo keyless research, optional Redis caching, and isolated billing until configured.
+- **Organized workspace.** Saved chats, folders, tags, pinned sessions, starred answers, and profile memory persist across sessions.
+
+## Features
+
+| Area | What you get |
+| --- | --- |
+| **Chat** | Streamed conversations with mode selector (Brief/Standard/Deep), message history, and persistent sessions. |
+| **Web research** | Keyless research with collected sources and citations rendered in responses. |
+| **Document context** | Upload and reference documents in the conversation with context-aware grounding. |
+| **Rich formatting** | React Markdown with GFM, KaTeX for math, and Mermaid for diagrams. |
+| **Authentication** | Supabase email/password with server-side sessions, plus guest mode for quick trials. |
+| **Workspace management** | Saved chats, folders, tags, pinning, starring answers, and persistent profile memory. |
+| **Storage** | Supabase/Postgres primary with local SQLite fallback for offline/development resilience. |
+| **Billing** | Stripe Checkout, customer portal, webhook handling, and subscription state synchronization. |
+| **Admin tools** | Workflows for access requests, feedback, usage tracking, and account operations. |
+| **Health & ops** | Public /status endpoint, robots metadata, sitemap generation, and smoke tests. |
 
 ## Screenshots
 
-Full-size images live in [`docs/screenshots/`](docs/screenshots/).
-
-### The workspace
-
 | | |
 |---|---|
-| ![Chat composer](docs/screenshots/01-chat-composer.png) | ![Workspace](docs/screenshots/03-malcom-workspace.png) |
-| **Chat composer** â€” streamed answers with Brief / Standard / Deep modes, web research with citations, and document context. | **Workspace** â€” saved chats, folders, tags, pinned sessions, and starred answers stay organized across sessions. |
-| ![Pricing plans](docs/screenshots/07-pricing-plans.png) | |
-| **Pricing plans** â€” Free, Pro ($9.99/mo), and Enterprise ($29.99/mo) tiers with Stripe Checkout upgrades. | |
+| ![Malcom workspace](docs/screenshots/03-malcom-workspace.png) | ![Settings general](docs/screenshots/02-settings-general.png) |
+| **Workspace** — saved chats, folders, tags, pinned sessions, and starred answers organized in one place. | **Settings** — account, usage, billing, and privacy controls from a unified panel. |
+| ![Login](docs/screenshots/06-login-workspace.png) | ![Pricing plans](docs/screenshots/07-pricing-plans.png) |
+| **Login** — server-side session handling resumes your workspace where you left off. | **Pricing** — Free, Pro ($9.99/mo), and Enterprise ($29.99/mo) via Stripe Checkout. |
 
-### Account & settings
+## Requirements
 
-| | |
-|---|---|
-| ![Signup](docs/screenshots/04-signup-workspace.png) | ![Login](docs/screenshots/06-login-workspace.png) |
-| **Create your Malcom account** â€” Supabase email/password registration, with guest mode when you just want to try it. | **Log in to Malcom** â€” server-side session handling picks your workspace back up where you left it. |
-| ![Settings â€” general](docs/screenshots/02-settings-general.png) | ![Settings â€” profile](docs/screenshots/05-settings-profile.png) |
-| **Settings** â€” the workspace dashboard: account, usage, billing, and privacy from one place. | **Account profile** â€” display name and profile memory the assistant carries across conversations. |
-| ![Settings â€” plan](docs/screenshots/08-settings-plan.png) | ![Settings â€” data](docs/screenshots/09-settings-data.png) |
-| **Subscription** â€” current plan, Stripe customer portal, and webhook-synced subscription state. | **Privacy and data** â€” what is stored, and the controls to manage it. |
-
-## Product overview
-
-- Streamed AI conversations with Brief, Standard, and Deep response modes
-- Optional web research with source collection and citations
-- Document upload and context-aware responses
-- Markdown, tables, code, Mermaid diagrams, and KaTeX math rendering
-- Guest mode plus Supabase email/password authentication
-- Saved chats, folders, tags, pinned sessions, starred answers, and profile memory
-- Local SQLite operation with an optional Supabase primary store and backup project
-- Stripe Checkout, customer portal, webhook handling, and subscription synchronization
-- Admin workflows for access requests, feedback, usage, and account operations
-- Public health/status reporting, robots metadata, sitemap generation, and smoke tests
-
-## Engineering highlights
-
-Malcom is designed to keep useful development paths available when optional infrastructure is absent. SQLite provides the local fallback, DuckDuckGo supports keyless research, Redis caching is optional, and billing features stay isolated until Stripe is configured. The health API reports application, model, storage, and billing readiness independently.
-
-| Area | Implementation |
-| --- | --- |
-| Web application | Next.js 16 App Router, React 19, TypeScript |
-| AI runtime | Ollama-compatible streaming chat endpoint |
-| Rich responses | React Markdown, GFM, KaTeX, Mermaid |
-| Persistence | Supabase/Postgres with SQLite fallback |
-| Authentication | Supabase Auth and server-side session handling |
-| Billing | Stripe Checkout, webhooks, portal, subscription sync |
-| Caching | Optional Redis/KV cache |
-| Operations | Health endpoints, status UI, smoke checks, production deployment script |
+- **Node.js 20+** with npm
+- **(Optional) Supabase project** — if not configured, the app falls back to local SQLite for persistence.
+- **(Optional) Stripe account** — required only for paid plans and billing flows; disabled gracefully if not configured.
+- **(Optional) Redis** — caching is optional and not required for local development.
 
 ## Quick start
 
-### Prerequisites
-
-- Node.js 20 or newer
-- npm
-- An Ollama-compatible chat server at `http://127.0.0.1:11434` or another configured URL
-
-### Install and run
-
 ```bash
+# 1. Clone
 git clone https://github.com/0xMudit/malcom-research-assistant.git
 cd malcom-research-assistant
+
+# 2. Install dependencies
 npm install
-cp .env.example .env.local
+
+# 3. Configure environment (optional)
+cp .env.example .env.local 2>/dev/null || true
+# Edit .env.local as needed. See Configuration below.
+
+# 4. Run in development
 npm run dev
+
+# 5. Open the app
+# http://localhost:3000
 ```
-
-Open [http://localhost:3000](http://localhost:3000). Ensure the model named by `MALCOM_MODEL` is available from the configured model server.
-
-Supabase, Stripe, Brave Search, and Redis are optional for local development. Without Supabase, application data falls back to `data/malcom.sqlite`.
 
 ## Configuration
 
-`.env.example` contains every supported setting with safe placeholder values. The main groups are:
+Set environment variables in `.env.local` as required. Core variables shown; see repo docs for complete set.
 
-- `MALCOM_*`: model, output limits, request timeout, web-research limits, and admin session settings
-- `NEXT_PUBLIC_*`: canonical application URL and browser-safe Supabase/Stripe configuration
-- `SUPABASE_*`: primary project, optional backup project, and schema connection URL
-- `STRIPE_*`: secret key, webhook secret, prices, and currency
-- `REDIS_URL` / `KV_URL`: optional cache connection
-- `BRAVE_SEARCH_API_KEY`: production search provider; DuckDuckGo remains the fallback
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_APP_URL` | Public base URL (e.g. https://malcom-lake.vercel.app) |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (optional; SQLite fallback used if absent) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key (optional) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role key for server operations (optional) |
+| `DATABASE_URL` | Database connection string (optional; SQLite used by default) |
+| `STRIPE_SECRET_KEY` | Stripe secret key (optional; billing disabled if missing) |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret (optional) |
+| `REDIS_URL` | Redis connection URL (optional) |
+| `OLLAMA_BASE_URL` | Ollama-compatible endpoint base URL |
+| `ENABLE_GUEST_MODE` | Enable guest access (default behavior as configured) |
 
-Never commit `.env.local` or production credentials.
+## How it works
 
-## Optional services
-
-### Supabase
-
-Run `supabase/schema.sql` in the Supabase SQL editor, then configure the public URL, anon key, and service-role key. To apply the schema with a direct connection string:
-
-```bash
-SUPABASE_DB_URL=postgresql://... npm run supabase:apply-schema
+```
++-------------------------------------------------------------------------+
+¦ Malcom (Next.js 16 App Router, React 19, TypeScript)                   ¦
++-------------------------------------------------------------------------¦
+¦ Renderer (React) --? App Router (server actions/routes) --? AI runtime ¦
++-------------------------------------------------------------------------+
+                               ¦        ¦                ¦
+                               ?        ?                ?
+                            Supabase   SQLite (local)   Ollama-compatible
+                            (primary)  (fallback)      chat endpoint
+                               ¦        ¦                ¦
+                               +--------+----------------+
+                                        ?
+                                      Stripe (billing, optional)
+                                        ¦
+                                        ?
+                                     Web research (DuckDuckGo, keyless)
 ```
 
-Enable email/password authentication in the Supabase project for account registration and saved user workspaces. Configuration and schema status are exposed through `/api/supabase/health` and the `/status` page.
+Malcom streams responses from an Ollama-compatible chat endpoint, augments context with uploaded documents and optional web research, and persists chats/workspaces to Supabase or SQLite. Billing flows route through Stripe Checkout and webhooks with customer portal access.
 
-### Web research
-
-The composerâ€™s Web mode searches for relevant pages, fetches a limited set of results, injects source excerpts into model context, and retains source links. Development works without a search key through DuckDuckGo Lite. Set `BRAVE_SEARCH_API_KEY` for Brave Search in production.
-
-### Stripe
-
-`STRIPE_PRICE_ID_PRO` and `STRIPE_PRICE_ID_ENTERPRISE` accept either recurring Stripe Price IDs (`price_...`) or numeric development amounts in cents (`999`, `2999`). Forward local webhooks with:
-
-```bash
-stripe listen --forward-to localhost:3000/api/stripe/webhook
-```
-
-Copy the resulting `whsec_...` value into `STRIPE_WEBHOOK_SECRET` and restart the app.
-
-### Admin access
-
-Set `MALCOM_ADMIN_USER`, `MALCOM_ADMIN_PASSWORD`, and a strong independent `MALCOM_ADMIN_SESSION_SECRET` in production. The `/admin` dashboard uses an HTTP-only signed session and protected API operations.
-
-## Project structure
+## Project layout
 
 ```text
-src/
-  app/                  App Router pages and API routes
-  components/           Shared product and account UI
-  lib/
-    database.ts         Supabase/SQLite persistence layer
-    llm-config.ts       Model runtime configuration
-    web-research.ts     Search, fetch, and source normalization
-    stripe.ts           Checkout and plan configuration
-    health.ts           Component-level readiness checks
-    supabase/            Browser, server, and admin clients
-scripts/                Schema, smoke-test, asset, and deployment tools
-supabase/schema.sql     Database schema
-docs/screenshots/       Product screenshots used by this README
+app/              # Next.js App Router routes and pages
+components/       # React UI components
+lib/              # Utilities, auth, db, types, helpers
+public/           # Static assets
+scripts/          # Build/ops utilities (smoke, verify, schema)
+docs/             # Documentation and screenshots
+__tests__/        # Vitest tests
 ```
 
-## Verification
+## Scripts
 
-```bash
-npm run lint
-npm test
-npm run build
-npm run smoke
-```
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Start development server (Next.js) |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm test` | Run Vitest tests |
+| `npm run smoke` | Run smoke tests |
+| `npm run verify:build-assets` | Verify built assets |
+| `npm run supabase:apply-schema` | Apply Supabase schema |
 
-`npm test` runs the unit suite: request-body validation, rate-limit window behaviour, response-mode parsing, and LLM configuration.
+## Contributing
 
-`npm run smoke` checks the public pages, health endpoint, and expected chat API error handling. Run it against a started production instance.
+See [CONTRIBUTING.md](CONTRIBUTING.md) if present in the repository for contribution guidelines.
 
-## Production deployment
+## Security
 
-Build and start directly:
+See [SECURITY.md](SECURITY.md) if present in the repository for security reporting.
 
-```bash
-npm ci
-npm run build
-npm start
-```
+## License
 
-The repository also includes `npm run deploy:prod` for the current host deployment workflow. Review the script and environment configuration before using it on another server.
+[MIT](LICENSE)
 
-## API surface
-
-The App Router exposes APIs for chat, documents, feedback, access requests, accounts, saved workspaces, usage, health, Supabase diagnostics, and Stripe lifecycle events. See `src/app/api/` for the route implementations.
+© 2025 [0xMudit](https://github.com/0xMudit)
